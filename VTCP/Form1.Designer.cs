@@ -1,4 +1,8 @@
-﻿namespace VTCP
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace VTCP
 {
     partial class Form1
     {
@@ -34,22 +38,35 @@
             this.bnAddApiKey = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tbAddApiKey = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabHashes = new System.Windows.Forms.TabPage();
             this.lbHashes = new System.Windows.Forms.ListBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.mnuHashListbox = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabConsole = new System.Windows.Forms.TabPage();
+            this.cbVerbose = new System.Windows.Forms.CheckBox();
             this.bnSubmit = new System.Windows.Forms.Button();
             this.tbHash = new System.Windows.Forms.TextBox();
             this.rtbResults = new System.Windows.Forms.RichTextBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.tabDetections = new System.Windows.Forms.TabPage();
+            this.bnClearDetections = new System.Windows.Forms.Button();
+            this.bnSaveDetections = new System.Windows.Forms.Button();
+            this.dgvDetections = new System.Windows.Forms.DataGridView();
+            this.colDetections = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFile = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mnuDgvCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuitemDvgCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbCompleted = new System.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aPIKeysFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hashFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mD5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sHA1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sHA256ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aPIKeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hashesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +74,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hashfileGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,20 +99,22 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuHashListbox = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.cbVerbose = new System.Windows.Forms.CheckBox();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.ssApp = new System.Windows.Forms.StatusStrip();
+            this.sslStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sslTimeRunning = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tmrDuration = new System.Windows.Forms.Timer(this.components);
+            this.tabControl.SuspendLayout();
+            this.tabHashes.SuspendLayout();
+            this.mnuHashListbox.SuspendLayout();
+            this.tabConsole.SuspendLayout();
+            this.tabDetections.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetections)).BeginInit();
+            this.mnuDgvCopy.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.mnulbApiKey.SuspendLayout();
-            this.mnuHashListbox.SuspendLayout();
+            this.ssApp.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -140,26 +161,28 @@
             this.tbAddApiKey.TabIndex = 5;
             this.tbAddApiKey.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(253, 37);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(671, 427);
-            this.tabControl1.TabIndex = 6;
+            this.tabControl.Controls.Add(this.tabHashes);
+            this.tabControl.Controls.Add(this.tabConsole);
+            this.tabControl.Controls.Add(this.tabDetections);
+            this.tabControl.Location = new System.Drawing.Point(253, 37);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(671, 427);
+            this.tabControl.TabIndex = 6;
+            this.tabControl.Deselecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Deselecting_1);
             // 
-            // tabPage1
+            // tabHashes
             // 
-            this.tabPage1.Controls.Add(this.lbHashes);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(663, 401);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Hashes";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabHashes.Controls.Add(this.lbHashes);
+            this.tabHashes.Location = new System.Drawing.Point(4, 22);
+            this.tabHashes.Name = "tabHashes";
+            this.tabHashes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabHashes.Size = new System.Drawing.Size(663, 401);
+            this.tabHashes.TabIndex = 0;
+            this.tabHashes.Text = "Hashes";
+            this.tabHashes.UseVisualStyleBackColor = true;
             // 
             // lbHashes
             // 
@@ -172,19 +195,65 @@
             this.lbHashes.TabIndex = 0;
             this.lbHashes.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // tabPage2
+            // mnuHashListbox
             // 
-            this.tabPage2.Controls.Add(this.cbVerbose);
-            this.tabPage2.Controls.Add(this.bnSubmit);
-            this.tabPage2.Controls.Add(this.tbHash);
-            this.tabPage2.Controls.Add(this.rtbResults);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(663, 401);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Results";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.mnuHashListbox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem6,
+            this.toolStripMenuItem7,
+            this.toolStripSeparator2,
+            this.toolStripMenuItem8});
+            this.mnuHashListbox.Name = "mnuHashListbox";
+            this.mnuHashListbox.Size = new System.Drawing.Size(158, 76);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(157, 22);
+            this.toolStripMenuItem6.Text = "Load Hashes";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(157, 22);
+            this.toolStripMenuItem7.Text = "Remove Item(s)";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(154, 6);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(157, 22);
+            this.toolStripMenuItem8.Text = "Clear Item(s)";
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
+            // 
+            // tabConsole
+            // 
+            this.tabConsole.Controls.Add(this.cbVerbose);
+            this.tabConsole.Controls.Add(this.bnSubmit);
+            this.tabConsole.Controls.Add(this.tbHash);
+            this.tabConsole.Controls.Add(this.rtbResults);
+            this.tabConsole.Location = new System.Drawing.Point(4, 22);
+            this.tabConsole.Name = "tabConsole";
+            this.tabConsole.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConsole.Size = new System.Drawing.Size(663, 401);
+            this.tabConsole.TabIndex = 1;
+            this.tabConsole.Text = "Console";
+            this.tabConsole.UseVisualStyleBackColor = true;
+            // 
+            // cbVerbose
+            // 
+            this.cbVerbose.AutoSize = true;
+            this.cbVerbose.Location = new System.Drawing.Point(587, 377);
+            this.cbVerbose.Name = "cbVerbose";
+            this.cbVerbose.Size = new System.Drawing.Size(65, 17);
+            this.cbVerbose.TabIndex = 3;
+            this.cbVerbose.Text = "Verbose";
+            this.cbVerbose.UseVisualStyleBackColor = true;
             // 
             // bnSubmit
             // 
@@ -214,12 +283,97 @@
             this.rtbResults.TabIndex = 0;
             this.rtbResults.Text = "";
             // 
-            // progressBar1
+            // tabDetections
             // 
-            this.progressBar1.Location = new System.Drawing.Point(255, 472);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(883, 21);
-            this.progressBar1.TabIndex = 7;
+            this.tabDetections.Controls.Add(this.bnClearDetections);
+            this.tabDetections.Controls.Add(this.bnSaveDetections);
+            this.tabDetections.Controls.Add(this.dgvDetections);
+            this.tabDetections.Location = new System.Drawing.Point(4, 22);
+            this.tabDetections.Name = "tabDetections";
+            this.tabDetections.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDetections.Size = new System.Drawing.Size(663, 401);
+            this.tabDetections.TabIndex = 2;
+            this.tabDetections.Text = "Detections";
+            this.tabDetections.UseVisualStyleBackColor = true;
+            // 
+            // bnClearDetections
+            // 
+            this.bnClearDetections.Location = new System.Drawing.Point(394, 369);
+            this.bnClearDetections.Name = "bnClearDetections";
+            this.bnClearDetections.Size = new System.Drawing.Size(125, 26);
+            this.bnClearDetections.TabIndex = 2;
+            this.bnClearDetections.Text = "Clear Detections";
+            this.bnClearDetections.UseVisualStyleBackColor = true;
+            this.bnClearDetections.Click += new System.EventHandler(this.bnClearDetections_Click);
+            // 
+            // bnSaveDetections
+            // 
+            this.bnSaveDetections.Location = new System.Drawing.Point(525, 369);
+            this.bnSaveDetections.Name = "bnSaveDetections";
+            this.bnSaveDetections.Size = new System.Drawing.Size(125, 26);
+            this.bnSaveDetections.TabIndex = 1;
+            this.bnSaveDetections.Text = "Save Detections";
+            this.bnSaveDetections.UseVisualStyleBackColor = true;
+            // 
+            // dgvDetections
+            // 
+            this.dgvDetections.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dgvDetections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDetections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colDetections,
+            this.colPath,
+            this.colFile,
+            this.colHash});
+            this.dgvDetections.ContextMenuStrip = this.mnuDgvCopy;
+            this.dgvDetections.Location = new System.Drawing.Point(12, 14);
+            this.dgvDetections.Name = "dgvDetections";
+            this.dgvDetections.Size = new System.Drawing.Size(638, 353);
+            this.dgvDetections.TabIndex = 0;
+            // 
+            // colDetections
+            // 
+            this.colDetections.HeaderText = "Detections";
+            this.colDetections.Name = "colDetections";
+            // 
+            // colPath
+            // 
+            this.colPath.HeaderText = "Path";
+            this.colPath.Name = "colPath";
+            this.colPath.ReadOnly = true;
+            // 
+            // colFile
+            // 
+            this.colFile.HeaderText = "Filename";
+            this.colFile.Name = "colFile";
+            this.colFile.ReadOnly = true;
+            // 
+            // colHash
+            // 
+            this.colHash.HeaderText = "Hash";
+            this.colHash.Name = "colHash";
+            this.colHash.ReadOnly = true;
+            // 
+            // mnuDgvCopy
+            // 
+            this.mnuDgvCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuitemDvgCopy});
+            this.mnuDgvCopy.Name = "mnuDgvCopy";
+            this.mnuDgvCopy.Size = new System.Drawing.Size(131, 26);
+            this.mnuDgvCopy.Opening += new System.ComponentModel.CancelEventHandler(this.mnuDgvCopy_Opening);
+            // 
+            // mnuitemDvgCopy
+            // 
+            this.mnuitemDvgCopy.Name = "mnuitemDvgCopy";
+            this.mnuitemDvgCopy.Size = new System.Drawing.Size(130, 22);
+            this.mnuitemDvgCopy.Text = "Copy Cells";
+            this.mnuitemDvgCopy.Click += new System.EventHandler(this.mnuitemDvgCopy_Click);
+            // 
+            // pbCompleted
+            // 
+            this.pbCompleted.Location = new System.Drawing.Point(255, 472);
+            this.pbCompleted.Name = "pbCompleted";
+            this.pbCompleted.Size = new System.Drawing.Size(883, 21);
+            this.pbCompleted.TabIndex = 7;
             // 
             // menuStrip1
             // 
@@ -251,43 +405,22 @@
             this.aPIKeysFileToolStripMenuItem,
             this.hashFileToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // aPIKeysFileToolStripMenuItem
             // 
             this.aPIKeysFileToolStripMenuItem.Name = "aPIKeysFileToolStripMenuItem";
-            this.aPIKeysFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aPIKeysFileToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.aPIKeysFileToolStripMenuItem.Text = "API Keys File";
             this.aPIKeysFileToolStripMenuItem.Click += new System.EventHandler(this.aPIKeysFileToolStripMenuItem_Click);
             // 
             // hashFileToolStripMenuItem
             // 
-            this.hashFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mD5ToolStripMenuItem,
-            this.sHA1ToolStripMenuItem,
-            this.sHA256ToolStripMenuItem});
             this.hashFileToolStripMenuItem.Name = "hashFileToolStripMenuItem";
-            this.hashFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hashFileToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.hashFileToolStripMenuItem.Text = "Hash File";
-            // 
-            // mD5ToolStripMenuItem
-            // 
-            this.mD5ToolStripMenuItem.Name = "mD5ToolStripMenuItem";
-            this.mD5ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.mD5ToolStripMenuItem.Text = "MD5";
-            // 
-            // sHA1ToolStripMenuItem
-            // 
-            this.sHA1ToolStripMenuItem.Name = "sHA1ToolStripMenuItem";
-            this.sHA1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.sHA1ToolStripMenuItem.Text = "SHA1";
-            // 
-            // sHA256ToolStripMenuItem
-            // 
-            this.sHA256ToolStripMenuItem.Name = "sHA256ToolStripMenuItem";
-            this.sHA256ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.sHA256ToolStripMenuItem.Text = "SHA256";
+            this.hashFileToolStripMenuItem.Click += new System.EventHandler(this.hashFileToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
@@ -295,7 +428,7 @@
             this.aPIKeysToolStripMenuItem,
             this.hashesToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // aPIKeysToolStripMenuItem
@@ -310,16 +443,17 @@
             this.hashesToolStripMenuItem.Name = "hashesToolStripMenuItem";
             this.hashesToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.hashesToolStripMenuItem.Text = "Hashes";
+            this.hashesToolStripMenuItem.Click += new System.EventHandler(this.hashesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -336,10 +470,29 @@
             // 
             // runToolStripMenuItem
             // 
+            this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.pauseToolStripMenuItem});
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
             this.runToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.runToolStripMenuItem.Text = "Run";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Enabled = false;
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Enabled = false;
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.pauseToolStripMenuItem.Text = "Pause";
+            this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
             // hashfileGeneratorToolStripMenuItem
             // 
@@ -366,7 +519,7 @@
             this.setDetectionThresholdToolStripMenuItem.Name = "setDetectionThresholdToolStripMenuItem";
             this.setDetectionThresholdToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.setDetectionThresholdToolStripMenuItem.Text = "Detection Threshold: 10";
-            this.setDetectionThresholdToolStripMenuItem.Click += new System.EventHandler(this.setDetectionThresholdToolStripMenuItem_Click);
+            this.setDetectionThresholdToolStripMenuItem.Click += new System.EventHandler(this.setDetectionThresholdToolStripMenuItem_Click_1);
             // 
             // helpToolStripMenuItem
             // 
@@ -400,7 +553,6 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rate Monitor";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // lblProjectedDay
             // 
@@ -505,7 +657,7 @@
             this.lbApiKeys.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbApiKeys.Size = new System.Drawing.Size(226, 368);
             this.lbApiKeys.TabIndex = 10;
-            this.lbApiKeys.SelectedIndexChanged += new System.EventHandler(this.lbApiKeys_SelectedIndexChanged);
+            this.lbApiKeys.SelectedIndexChanged += new System.EventHandler(this.lbApiKeys_SelectedIndexChanged_1);
             // 
             // mnulbApiKey
             // 
@@ -516,7 +668,6 @@
             this.toolStripMenuItem5});
             this.mnulbApiKey.Name = "mnulbApiKey";
             this.mnulbApiKey.Size = new System.Drawing.Size(186, 76);
-            this.mnulbApiKey.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem3
             // 
@@ -544,66 +695,52 @@
             this.toolStripMenuItem5.Text = "Clear All";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
-            // mnuHashListbox
-            // 
-            this.mnuHashListbox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripSeparator2,
-            this.toolStripMenuItem8});
-            this.mnuHashListbox.Name = "mnuHashListbox";
-            this.mnuHashListbox.Size = new System.Drawing.Size(158, 76);
-            this.mnuHashListbox.Opening += new System.ComponentModel.CancelEventHandler(this.mnuHashListbox_Opening);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(157, 22);
-            this.toolStripMenuItem6.Text = "Load Hashes";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(157, 22);
-            this.toolStripMenuItem7.Text = "Remove Item(s)";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(154, 6);
-            // 
-            // toolStripMenuItem8
-            // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(157, 22);
-            this.toolStripMenuItem8.Text = "Clear Item(s)";
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // cbVerbose
+            // ssApp
             // 
-            this.cbVerbose.AutoSize = true;
-            this.cbVerbose.Location = new System.Drawing.Point(587, 377);
-            this.cbVerbose.Name = "cbVerbose";
-            this.cbVerbose.Size = new System.Drawing.Size(65, 17);
-            this.cbVerbose.TabIndex = 3;
-            this.cbVerbose.Text = "Verbose";
-            this.cbVerbose.UseVisualStyleBackColor = true;
+            this.ssApp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sslStatus,
+            this.sslTimeRunning});
+            this.ssApp.Location = new System.Drawing.Point(0, 499);
+            this.ssApp.Name = "ssApp";
+            this.ssApp.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ssApp.Size = new System.Drawing.Size(1145, 22);
+            this.ssApp.SizingGrip = false;
+            this.ssApp.TabIndex = 11;
+            this.ssApp.Text = "statusStrip1";
+            // 
+            // sslStatus
+            // 
+            this.sslStatus.ForeColor = System.Drawing.Color.Red;
+            this.sslStatus.Name = "sslStatus";
+            this.sslStatus.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.sslStatus.Size = new System.Drawing.Size(52, 17);
+            this.sslStatus.Text = "Disabled";
+            // 
+            // sslTimeRunning
+            // 
+            this.sslTimeRunning.Name = "sslTimeRunning";
+            this.sslTimeRunning.Size = new System.Drawing.Size(49, 17);
+            this.sslTimeRunning.Text = "00:00:00";
+            // 
+            // tmrDuration
+            // 
+            this.tmrDuration.Interval = 1000;
+            this.tmrDuration.Tick += new System.EventHandler(this.tmrDuration_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1145, 502);
+            this.ClientSize = new System.Drawing.Size(1145, 521);
+            this.Controls.Add(this.ssApp);
             this.Controls.Add(this.lbApiKeys);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.pbCompleted);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.tbAddApiKey);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.bnAddApiKey);
@@ -615,19 +752,29 @@
             this.Name = "Form1";
             this.Text = "651 CPT Virus Total Command Post";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.tabHashes.ResumeLayout(false);
+            this.mnuHashListbox.ResumeLayout(false);
+            this.tabConsole.ResumeLayout(false);
+            this.tabConsole.PerformLayout();
+            this.tabDetections.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetections)).EndInit();
+            this.mnuDgvCopy.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.mnulbApiKey.ResumeLayout(false);
-            this.mnuHashListbox.ResumeLayout(false);
+            this.ssApp.ResumeLayout(false);
+            this.ssApp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -637,18 +784,15 @@
         private System.Windows.Forms.Button bnAddApiKey;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox tbAddApiKey;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabHashes;
+        private System.Windows.Forms.TabPage tabConsole;
+        private System.Windows.Forms.ProgressBar pbCompleted;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aPIKeysFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hashFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mD5ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sHA1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sHA256ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -690,6 +834,28 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox cbVerbose;
+        private System.Windows.Forms.TabPage tabDetections;
+        private System.Windows.Forms.DataGridView dgvDetections;
+        private System.Windows.Forms.Button bnClearDetections;
+        private System.Windows.Forms.Button bnSaveDetections;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDetections;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHash;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFile;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPath;
+        private EventHandler setDetectionThresholdToolStripMenuItem_Click;
+        private EventHandler groupBox1_Enter;
+        private EventHandler lbApiKeys_SelectedIndexChanged;
+        private CancelEventHandler contextMenuStrip1_Opening;
+        private CancelEventHandler mnuHashListbox_Opening;
+        private DataGridViewCellEventHandler dataGridView1_CellContentClick_1;
+        private ToolStripMenuItem startToolStripMenuItem;
+        private ToolStripMenuItem pauseToolStripMenuItem;
+        private ContextMenuStrip mnuDgvCopy;
+        private ToolStripMenuItem mnuitemDvgCopy;
+        private StatusStrip ssApp;
+        private ToolStripStatusLabel sslStatus;
+        private ToolStripStatusLabel sslTimeRunning;
+        private Timer tmrDuration;
     }
 }
 
