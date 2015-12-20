@@ -44,10 +44,20 @@ namespace VTCP
         {
             if (cbRecursive.Checked)
             {
+                toolStripProgressBar1.Value = 0;
+                bnGenerateList.Enabled = false;
+                slblStatus.ForeColor = Color.Blue;
+                slblStatus.Text = "Counting files, please wait ...";
                 fileCount(tbRootDir.Text, tbFilter.Text, true);
                 toolStripStatusLabel1.Text = "Count: " + numFiles.ToString();
                 toolStripProgressBar1.Maximum = numFiles;
+                slblStatus.Text = "Calculating all hashes, please wait ...";
                 fileSearch(tbRootDir.Text, tbFilter.Text, true);
+                bnGenerateList.Enabled = true;
+                slblStatus.ForeColor = Color.Green;
+                slblStatus.Text = "Done!";
+                numFiles = 0;
+
             }
             if (lbResults.Items.Count != 0)
             {
@@ -63,14 +73,14 @@ namespace VTCP
                 {
                     foreach (string dir in Directory.GetDirectories(rootDir))
                     {
-                        foreach (string file in Directory.GetFiles(dir,filter,SearchOption.AllDirectories))
+                        foreach (string file in Directory.GetFiles(dir,filter))
                         {
                             toolStripProgressBar1.Value++;
                             Hasher h = new Hasher(file, algo);
                             lbResults.Items.Add(h.calculateHash() + "|" + file);
                         }
 
-                        //fileSearch(dir, filter, true);
+                        fileSearch(dir, filter,false);
                     }
                 }
                 catch (Exception ex)
@@ -84,6 +94,7 @@ namespace VTCP
                 {
                     foreach (string dir in Directory.GetDirectories(rootDir))
                     {
+                        
                         foreach (string file in Directory.GetFiles(dir, filter))
                         {
                             toolStripProgressBar1.Value++;
@@ -103,39 +114,41 @@ namespace VTCP
         {
             if (recursive)
             {
-                try
-                {
-                    foreach (string dir in Directory.GetDirectories(rootDir))
-                    {
-                        foreach (string file in Directory.GetFiles(dir, filter,SearchOption.AllDirectories))
-                        {
-                            numFiles++;
-                        }
 
-                        //fileCount(dir, filter, true);
-                    }
-                }
-                catch (Exception ex)
+                foreach (string dir in Directory.GetDirectories(rootDir))
                 {
-                    // do something
-                }
-            }
-            else
-            {
-                try
-                {
-                    foreach (string dir in Directory.GetDirectories(rootDir))
+                    try
                     {
                         foreach (string file in Directory.GetFiles(dir, filter))
                         {
                             numFiles++;
                         }
 
+                        fileCount(dir, filter, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // do nothing
                     }
                 }
-                catch (Exception ex)
+
+            }
+            else
+            {
+                foreach (string dir in Directory.GetDirectories(rootDir))
                 {
-                    // do something
+                    try
+                    {
+                        foreach (string file in Directory.GetFiles(dir, filter))
+                        {
+                            numFiles++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // do something
+                    }
+
                 }
             }
         }

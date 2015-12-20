@@ -38,7 +38,7 @@ namespace VTCP
             this.bnAddApiKey = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tbAddApiKey = new System.Windows.Forms.TextBox();
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabHashes = new System.Windows.Forms.TabPage();
             this.lbHashes = new System.Windows.Forms.ListBox();
             this.mnuHashListbox = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -83,6 +83,11 @@ namespace VTCP
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblTimeRemaining = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblAvgTime = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.lblProjectedDay = new System.Windows.Forms.Label();
             this.lblPrjDay = new System.Windows.Forms.Label();
             this.lblPrjHr = new System.Windows.Forms.Label();
@@ -104,7 +109,13 @@ namespace VTCP
             this.sslStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.sslTimeRunning = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrDuration = new System.Windows.Forms.Timer(this.components);
-            this.tabControl.SuspendLayout();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblTotalHashes = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblCurrentHash = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbSubmitTimes = new System.Windows.Forms.ListBox();
+            this.tcOptions.SuspendLayout();
             this.tabHashes.SuspendLayout();
             this.mnuHashListbox.SuspendLayout();
             this.tabConsole.SuspendLayout();
@@ -115,6 +126,7 @@ namespace VTCP
             this.groupBox1.SuspendLayout();
             this.mnulbApiKey.SuspendLayout();
             this.ssApp.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -161,17 +173,17 @@ namespace VTCP
             this.tbAddApiKey.TabIndex = 5;
             this.tbAddApiKey.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // tabControl
+            // tcOptions
             // 
-            this.tabControl.Controls.Add(this.tabHashes);
-            this.tabControl.Controls.Add(this.tabConsole);
-            this.tabControl.Controls.Add(this.tabDetections);
-            this.tabControl.Location = new System.Drawing.Point(253, 37);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(671, 427);
-            this.tabControl.TabIndex = 6;
-            this.tabControl.Deselecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Deselecting_1);
+            this.tcOptions.Controls.Add(this.tabHashes);
+            this.tcOptions.Controls.Add(this.tabConsole);
+            this.tcOptions.Controls.Add(this.tabDetections);
+            this.tcOptions.Location = new System.Drawing.Point(253, 37);
+            this.tcOptions.Name = "tcOptions";
+            this.tcOptions.SelectedIndex = 0;
+            this.tcOptions.Size = new System.Drawing.Size(671, 427);
+            this.tcOptions.TabIndex = 6;
+            this.tcOptions.Deselecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Deselecting_1);
             // 
             // tabHashes
             // 
@@ -482,7 +494,7 @@ namespace VTCP
             // 
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -490,7 +502,7 @@ namespace VTCP
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
@@ -537,6 +549,11 @@ namespace VTCP
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblTimeRemaining);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblAvgTime);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.lblProjectedDay);
             this.groupBox1.Controls.Add(this.lblPrjDay);
             this.groupBox1.Controls.Add(this.lblPrjHr);
@@ -549,10 +566,55 @@ namespace VTCP
             this.groupBox1.Controls.Add(this.lblPrj);
             this.groupBox1.Location = new System.Drawing.Point(927, 37);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(211, 422);
+            this.groupBox1.Size = new System.Drawing.Size(211, 135);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rate Monitor";
+            // 
+            // lblTimeRemaining
+            // 
+            this.lblTimeRemaining.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.lblTimeRemaining.Location = new System.Drawing.Point(98, 96);
+            this.lblTimeRemaining.Name = "lblTimeRemaining";
+            this.lblTimeRemaining.Size = new System.Drawing.Size(106, 13);
+            this.lblTimeRemaining.TabIndex = 14;
+            this.lblTimeRemaining.Text = "NA";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 95);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Time Remaining:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(117, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Seconds";
+            // 
+            // lblAvgTime
+            // 
+            this.lblAvgTime.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.lblAvgTime.Location = new System.Drawing.Point(98, 82);
+            this.lblAvgTime.Name = "lblAvgTime";
+            this.lblAvgTime.Size = new System.Drawing.Size(24, 13);
+            this.lblAvgTime.TabIndex = 11;
+            this.lblAvgTime.Text = "NA";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 82);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Average Pause:";
             // 
             // lblProjectedDay
             // 
@@ -595,7 +657,7 @@ namespace VTCP
             // lblIntSec
             // 
             this.lblIntSec.AutoSize = true;
-            this.lblIntSec.Location = new System.Drawing.Point(106, 69);
+            this.lblIntSec.Location = new System.Drawing.Point(117, 69);
             this.lblIntSec.Name = "lblIntSec";
             this.lblIntSec.Size = new System.Drawing.Size(49, 13);
             this.lblIntSec.TabIndex = 5;
@@ -604,7 +666,7 @@ namespace VTCP
             // lblInterval
             // 
             this.lblInterval.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
-            this.lblInterval.Location = new System.Drawing.Point(87, 69);
+            this.lblInterval.Location = new System.Drawing.Point(98, 69);
             this.lblInterval.Name = "lblInterval";
             this.lblInterval.Size = new System.Drawing.Size(24, 13);
             this.lblInterval.TabIndex = 4;
@@ -615,9 +677,9 @@ namespace VTCP
             this.lblInt.AutoSize = true;
             this.lblInt.Location = new System.Drawing.Point(8, 69);
             this.lblInt.Name = "lblInt";
-            this.lblInt.Size = new System.Drawing.Size(78, 13);
+            this.lblInt.Size = new System.Drawing.Size(88, 13);
             this.lblInt.TabIndex = 3;
-            this.lblInt.Text = "Interval Pause:";
+            this.lblInt.Text = "Projected Pause:";
             // 
             // lblPrj2
             // 
@@ -731,16 +793,76 @@ namespace VTCP
             this.tmrDuration.Interval = 1000;
             this.tmrDuration.Tick += new System.EventHandler(this.tmrDuration_Tick);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblTotalHashes);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.lblCurrentHash);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Location = new System.Drawing.Point(926, 178);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(211, 135);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Information";
+            // 
+            // lblTotalHashes
+            // 
+            this.lblTotalHashes.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.lblTotalHashes.Location = new System.Drawing.Point(85, 38);
+            this.lblTotalHashes.Name = "lblTotalHashes";
+            this.lblTotalHashes.Size = new System.Drawing.Size(65, 13);
+            this.lblTotalHashes.TabIndex = 6;
+            this.lblTotalHashes.Text = "NA";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Total Items:";
+            // 
+            // lblCurrentHash
+            // 
+            this.lblCurrentHash.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.lblCurrentHash.Location = new System.Drawing.Point(85, 25);
+            this.lblCurrentHash.Name = "lblCurrentHash";
+            this.lblCurrentHash.Size = new System.Drawing.Size(65, 13);
+            this.lblCurrentHash.TabIndex = 4;
+            this.lblCurrentHash.Text = "NA";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Current Item:";
+            // 
+            // lbSubmitTimes
+            // 
+            this.lbSubmitTimes.FormattingEnabled = true;
+            this.lbSubmitTimes.Location = new System.Drawing.Point(526, 36);
+            this.lbSubmitTimes.Name = "lbSubmitTimes";
+            this.lbSubmitTimes.Size = new System.Drawing.Size(368, 199);
+            this.lbSubmitTimes.TabIndex = 12;
+            this.lbSubmitTimes.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1145, 521);
+            this.Controls.Add(this.lbSubmitTimes);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.ssApp);
             this.Controls.Add(this.lbApiKeys);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbCompleted);
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.tcOptions);
             this.Controls.Add(this.tbAddApiKey);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.bnAddApiKey);
@@ -750,9 +872,9 @@ namespace VTCP
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "651 CPT Virus Total Command Post";
+            this.Text = "VTCP";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl.ResumeLayout(false);
+            this.tcOptions.ResumeLayout(false);
             this.tabHashes.ResumeLayout(false);
             this.mnuHashListbox.ResumeLayout(false);
             this.tabConsole.ResumeLayout(false);
@@ -767,6 +889,8 @@ namespace VTCP
             this.mnulbApiKey.ResumeLayout(false);
             this.ssApp.ResumeLayout(false);
             this.ssApp.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -784,7 +908,7 @@ namespace VTCP
         private System.Windows.Forms.Button bnAddApiKey;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox tbAddApiKey;
-        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabControl tcOptions;
         private System.Windows.Forms.TabPage tabHashes;
         private System.Windows.Forms.TabPage tabConsole;
         private System.Windows.Forms.ProgressBar pbCompleted;
@@ -856,6 +980,17 @@ namespace VTCP
         private ToolStripStatusLabel sslStatus;
         private ToolStripStatusLabel sslTimeRunning;
         private Timer tmrDuration;
+        private GroupBox groupBox2;
+        private Label lblTotalHashes;
+        private Label label2;
+        private Label lblCurrentHash;
+        private Label label8;
+        private Label label3;
+        private Label lblAvgTime;
+        private Label label5;
+        private ListBox lbSubmitTimes;
+        private Label lblTimeRemaining;
+        private Label label6;
     }
 }
 

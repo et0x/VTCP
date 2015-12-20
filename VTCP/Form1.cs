@@ -24,6 +24,7 @@ namespace VTCP
         int iDuration = 0;
         int totalSubmitted = 0;
         bool bRunning = false;
+        DateTime lastSubmission = DateTime.MinValue;
 
         public Form1()
         {
@@ -323,6 +324,12 @@ namespace VTCP
             if (lbApiKeys.Items.Count > 0 && lbHashes.Items.Count > 0)
             {
                 startToolStripMenuItem.Enabled = true;
+                
+            }
+
+            if (lbHashes.Items.Count > 0)
+            {
+                lblTotalHashes.Text = lbHashes.Items.Count.ToString();
             }
 
         }
@@ -359,17 +366,33 @@ namespace VTCP
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             tbHash.Text = lbHashes.Items[hashIndex].ToString().Split('|')[0];
             bnSubmit.PerformClick();
             pbCompleted.Increment(1);
             if (hashIndex+1 >= lbHashes.Items.Count)
             {
                 hashIndex = 0;
+                startToolStripMenuItem.PerformClick();
             }
             else
             {
                 hashIndex++;
+                if (lastSubmission != DateTime.MinValue)
+                {
+                    var diff = (DateTime.Now - lastSubmission).TotalSeconds;
+                    lbSubmitTimes.Items.Add(diff.ToString());
+                }
+                lastSubmission = DateTime.Now;
+            }
+            lblCurrentHash.Text = hashIndex.ToString();
+            if (lbSubmitTimes.Items.Count > 0)
+            {
+                lblAvgTime.Text = string.Format("{0:0.00}", average_ListItems(lbSubmitTimes));
+                int s = (int)((lbHashes.Items.Count - hashIndex) * Convert.ToDouble(lblAvgTime.Text));
+                TimeSpan t = TimeSpan.FromSeconds(s);
+                lblTimeRemaining.Text = string.Format(
+                    "{0:D2}h:{1:D2}m:{2:D2}s",t.Hours,t.Minutes,t.Seconds
+                    );
             }
         }
 
@@ -401,6 +424,10 @@ namespace VTCP
                     hashIndex           = 0;
                     apiKeyIndex         = 0;
                     pbCompleted.Value   = 0;
+                    lbSubmitTimes.Items.Clear();
+                    lastSubmission = DateTime.MinValue;
+                    lblAvgTime.Text = "NA";
+                    lblTimeRemaining.Text = "NA";
 
                     // allow modifications to api keys / hashes:
                     toolStripMenuItem4.Enabled = true;  // api keys / remove
@@ -435,8 +462,11 @@ namespace VTCP
                     toolStripMenuItem8.Enabled = false;  // hashes / clear
 
                     // disable tabs
-                    tabControl.SelectedTab = tabConsole;
+                    tcOptions.SelectedTab = tabConsole;
                     bRunning = true;
+
+                    // progress bar
+                    pbCompleted.Maximum = lbHashes.Items.Count;
 
                 }
             }
@@ -461,7 +491,7 @@ namespace VTCP
                 tmrDuration.Enabled = true;
 
                 // disable tabs
-                tabControl.SelectedTab = tabConsole;
+                tcOptions.SelectedTab = tabConsole;
                 bRunning = true;
 
             }
@@ -482,6 +512,9 @@ namespace VTCP
 
                 // re-enable tabs
                 bRunning = false;
+
+                // misc
+                lastSubmission = DateTime.MinValue;
             }
         }
 
@@ -568,11 +601,11 @@ namespace VTCP
             {
 
                 int consoleTab = 1;
-                int selectedTab = tabControl.SelectedIndex;
+                int selectedTab = tcOptions.SelectedIndex;
 
                 if (selectedTab != consoleTab)
                 {
-                    tabControl.SelectedIndex = 1;
+                    tcOptions.SelectedIndex = 1;
                 }
             }
         }
@@ -590,6 +623,16 @@ namespace VTCP
         private void tabControl_Deselecting_1(object sender, TabControlCancelEventArgs e)
         {
 
+        }
+
+        private double average_ListItems(ListBox lb)
+        {
+            List<double> dList = new List<double>();
+            foreach (string item in lb.Items)
+            {
+                dList.Add(Convert.ToDouble(item));
+            }
+            return dList.Average();
         }
     }
 }
