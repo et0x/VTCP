@@ -69,9 +69,10 @@ namespace VTCP
         {
             if (recursive)
             {
-                try
+
+                foreach (string dir in Directory.GetDirectories(rootDir))
                 {
-                    foreach (string dir in Directory.GetDirectories(rootDir))
+                    try
                     {
                         foreach (string file in Directory.GetFiles(dir,filter))
                         {
@@ -80,34 +81,37 @@ namespace VTCP
                             lbResults.Items.Add(h.calculateHash() + "|" + file);
                         }
 
-                        fileSearch(dir, filter,false);
+                        fileSearch(dir, filter,true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // do something
                     }
                 }
-                catch (Exception ex)
-                {
-                    // do something
-                }
+
             }
             else
             {
-                try
+
+                foreach (string dir in Directory.GetDirectories(rootDir))
                 {
-                    foreach (string dir in Directory.GetDirectories(rootDir))
+                    try
                     {
-                        
+
                         foreach (string file in Directory.GetFiles(dir, filter))
                         {
                             toolStripProgressBar1.Value++;
                             Hasher h = new Hasher(file, algo);
                             lbResults.Items.Add(h.calculateHash() + "|" + file);
                         }
-
                     }
+                    catch (Exception ex)
+                    {
+                        // do something
+                    }
+
                 }
-                catch (Exception ex)
-                {
-                    // do something
-                }
+
             }
         }
         void fileCount(string rootDir, string filter, bool recursive)
