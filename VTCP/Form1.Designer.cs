@@ -110,6 +110,8 @@ namespace VTCP
             this.sslTimeRunning = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrDuration = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblDetections = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.lblTotalHashes = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblCurrentHash = new System.Windows.Forms.Label();
@@ -496,7 +498,7 @@ namespace VTCP
             // 
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -504,7 +506,7 @@ namespace VTCP
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
@@ -798,6 +800,8 @@ namespace VTCP
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblDetections);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.lblTotalHashes);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.lblCurrentHash);
@@ -808,6 +812,24 @@ namespace VTCP
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Information";
+            // 
+            // lblDetections
+            // 
+            this.lblDetections.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.lblDetections.Location = new System.Drawing.Point(85, 51);
+            this.lblDetections.Name = "lblDetections";
+            this.lblDetections.Size = new System.Drawing.Size(65, 13);
+            this.lblDetections.TabIndex = 8;
+            this.lblDetections.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 51);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Detections:";
             // 
             // lblTotalHashes
             // 
@@ -994,6 +1016,8 @@ namespace VTCP
         private ListBox lbSubmitTimes;
         private Label lblTimeRemaining;
         private Label label6;
+        private Label lblDetections;
+        private Label label7;
     }
 }
 

@@ -22,7 +22,6 @@ namespace VTCP
         int apiKeyIndex = 0;
         int hashIndex = 0;
         int iDuration = 0;
-        int totalSubmitted = 0;
         bool bRunning = false;
         DateTime lastSubmission = DateTime.MinValue;
 
@@ -57,82 +56,7 @@ namespace VTCP
         private void button3_Click(object sender, EventArgs e)
         {
 
-            if (tbHash.Text.Trim() != "")
-            {
-
-                handler.APIKey = lbApiKeys.Items[apiKeyIndex].ToString();
-                string json = handler.CheckHash(tbHash.Text);
-
-                VirusTotalResults res = JsonConvert.DeserializeObject<VirusTotalResults>(json);
-
-                try
-                {
-                    if (!res.md5.Equals(null))
-                    {
-                        if (res.positives >= detectionThreshold)
-                        {
-
-                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
-
-                            rtb.printFailure("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
-
-
-                            dgvDetections.Rows.Add(res.positives, System.IO.Path.GetDirectoryName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), res.md5);
-
-                            if (cbVerbose.Checked)
-                            {
-
-                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
-                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
-
-                            }
-
-                        }
-                        else
-                        {
-
-                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
-                            rtb.printSuccess("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
-
-                            if (cbVerbose.Checked)
-                            {
-
-                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
-                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
-
-                            }
-
-                        }
-                    }
-                }
-                catch (NullReferenceException)
-                {
-                    rtb.printWarning("Unique file submitted (never submitted before)", rtbResults);
-                    if (cbVerbose.Checked)
-                    {
-
-                        rtb.printStatus("  APIKey: " + handler.APIKey, rtbResults);
-                        rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbResults);
-
-                    }
-                }
-                if (apiKeyIndex + 1 >= lbApiKeys.Items.Count)
-                {
-
-                    apiKeyIndex = 0;
-
-                } 
-                else
-                {
-
-                    apiKeyIndex++;
-
-                }
-
-                rtbResults.SelectionStart = rtbResults.Text.Length;
-                rtbResults.ScrollToCaret();
-
-            }
+            performSubmission();
 
         }
 
@@ -386,7 +310,7 @@ namespace VTCP
         private void timer1_Tick(object sender, EventArgs e)
         {
             tbHash.Text = lbHashes.Items[hashIndex].ToString().Split('|')[0];
-            bnSubmit.PerformClick();
+            performSubmission();
             pbCompleted.Increment(1);
             if (hashIndex+1 >= lbHashes.Items.Count)
             {
@@ -447,6 +371,7 @@ namespace VTCP
                     lastSubmission = DateTime.MinValue;
                     lblAvgTime.Text = "NA";
                     lblTimeRemaining.Text = "NA";
+                    bnSubmit.Enabled = true;
 
                     // allow modifications to api keys / hashes:
                     toolStripMenuItem4.Enabled = true;  // api keys / remove
@@ -468,6 +393,8 @@ namespace VTCP
 
                     // start executing submissions:
                     timer1.Enabled = true;
+                    bnSubmit.Enabled = false;
+                    lblDetections.Text = "0";
 
                     // status bar text:
                     sslStatus.ForeColor = Color.Green;
@@ -503,6 +430,7 @@ namespace VTCP
 
                 // resume submissions
                 timer1.Enabled = true;
+                bnSubmit.Enabled = false;
 
                 // status bar text:
                 sslStatus.ForeColor = Color.Green;
@@ -523,6 +451,7 @@ namespace VTCP
 
                 // pause submissions
                 timer1.Enabled = false;
+                bnSubmit.Enabled = true;
 
                 // status bar text:
                 sslStatus.ForeColor = Color.Blue;
@@ -668,6 +597,86 @@ namespace VTCP
         private void rtbResults_MouseDown(object sender, MouseEventArgs e)
         {
             rtbResults.SelectionStart = rtbResults.Text.Length;
+        }
+
+        private void performSubmission()
+        {
+            if (tbHash.Text.Trim() != "")
+            {
+
+                handler.APIKey = lbApiKeys.Items[apiKeyIndex].ToString();
+                string json = handler.CheckHash(tbHash.Text);
+
+                VirusTotalResults res = JsonConvert.DeserializeObject<VirusTotalResults>(json);
+
+                try
+                {
+                    if (!res.md5.Equals(null))
+                    {
+                        if (res.positives >= detectionThreshold)
+                        {
+
+                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
+
+                            rtb.printFailure("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
+                            lblDetections.Text = (Convert.ToInt32(lblDetections.Text) + 1).ToString();
+
+                            dgvDetections.Rows.Add(res.positives, System.IO.Path.GetDirectoryName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), res.md5);
+
+                            if (cbVerbose.Checked)
+                            {
+
+                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
+                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
+                            rtb.printSuccess("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
+
+                            if (cbVerbose.Checked)
+                            {
+
+                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
+                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
+
+                            }
+
+                        }
+                    }
+                }
+                catch (NullReferenceException)
+                {
+                    rtb.printWarning("Unique file submitted (never submitted before)", rtbResults);
+                    if (cbVerbose.Checked)
+                    {
+
+                        rtb.printStatus("  APIKey: " + handler.APIKey, rtbResults);
+                        rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbResults);
+
+                    }
+                }
+                if (apiKeyIndex + 1 >= lbApiKeys.Items.Count)
+                {
+
+                    apiKeyIndex = 0;
+
+                }
+                else
+                {
+
+                    apiKeyIndex++;
+
+                }
+
+                rtbResults.SelectionStart = rtbResults.Text.Length;
+                rtbResults.ScrollToCaret();
+
+            }
         }
     }
 }
