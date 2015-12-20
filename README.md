@@ -4,25 +4,25 @@
 ![Step 1]("https://raw.github.com/et0x/VTCP/Images/1.png")
 
 ### Get Names of All Services / Processes:
-![Step 2]("https://raw.github.com/et0x/VTCP/Images/2.png")
+![Step 2]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/2.png")
 
 ### Get Names of All Services / Processes:
-![Step 3]("https://raw.github.com/et0x/VTCP/Images/3.png")
+![Step 3]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/3.png")
 
 ### Get Names of All Services / Processes:
-![Step 4]("https://raw.github.com/et0x/VTCP/Images/4.png")
+![Step 4]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/4.png")
 
 ### Get Names of All Services / Processes:
-![Step 5]("https://raw.github.com/et0x/VTCP/Images/5.png")
+![Step 5]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/5.png")
 
 ### Get Names of All Services / Processes:
-![Step 6]("https://raw.github.com/et0x/VTCP/Images/6.png")
+![Step 6]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/6.png")
 
 ### Get Names of All Services / Processes:
-![Step 7]("https://raw.github.com/et0x/VTCP/Images/7.png")
+![Step 7]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/7.png")
 
 ### Get Names of All Services / Processes:
-![Step 8]("https://raw.github.com/et0x/VTCP/Images/8.png")
+![Step 8]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/8.png")
 
 ### Get Names of All Services / Processes:
-![Step 9]("https://raw.github.com/et0x/VTCP/Images/9.png")
+![Step 9]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/9.png")
