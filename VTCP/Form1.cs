@@ -65,38 +65,57 @@ namespace VTCP
 
                 VirusTotalResults res = JsonConvert.DeserializeObject<VirusTotalResults>(json);
 
-                if (res.positives >= detectionThreshold)
+                try
                 {
+                    if (!res.md5.Equals(null))
+                    {
+                        if (res.positives >= detectionThreshold)
+                        {
 
-                    RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
-                    rtb.printFailure("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
-                    dgvDetections.Rows.Add(res.positives, System.IO.Path.GetDirectoryName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), res.md5);
+                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
 
+                            rtb.printFailure("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
+
+
+                            dgvDetections.Rows.Add(res.positives, System.IO.Path.GetDirectoryName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), res.md5);
+
+                            if (cbVerbose.Checked)
+                            {
+
+                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
+                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
+                            rtb.printSuccess("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
+
+                            if (cbVerbose.Checked)
+                            {
+
+                                rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
+                                rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
+
+                            }
+
+                        }
+                    }
+                }
+                catch (NullReferenceException)
+                {
+                    rtb.printWarning("Unique file submitted (never submitted before)", rtbResults);
                     if (cbVerbose.Checked)
                     {
 
-                        rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
-                        rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
+                        rtb.printStatus("  APIKey: " + handler.APIKey, rtbResults);
+                        rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbResults);
 
                     }
-
                 }
-                else
-                {
-
-                    RichTextBox rtbConsole = (RichTextBox)tabConsole.Controls["rtbResults"];
-                    rtb.printSuccess("Detections for '" + res.md5 + "': " + res.positives + " / " + res.total, rtbConsole);
-
-                    if (cbVerbose.Checked)
-                    {
-
-                        rtb.printStatus("  APIKey: " + handler.APIKey, rtbConsole);
-                        rtb.printStatus("  File:   " + System.IO.Path.GetFileName(lbHashes.Items[hashIndex].ToString().Split('|')[1]), rtbConsole);
-
-                    }
-
-                }
-
                 if (apiKeyIndex + 1 >= lbApiKeys.Items.Count)
                 {
 
@@ -639,6 +658,16 @@ namespace VTCP
         {
             Form aboutBox = new aboutbox();
             aboutBox.Show();
+        }
+
+        private void rtbResults_MouseUp(object sender, MouseEventArgs e)
+        {
+            rtbResults.SelectionStart = rtbResults.Text.Length;
+        }
+
+        private void rtbResults_MouseDown(object sender, MouseEventArgs e)
+        {
+            rtbResults.SelectionStart = rtbResults.Text.Length;
         }
     }
 }

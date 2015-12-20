@@ -294,6 +294,8 @@ namespace VTCP
             this.rtbResults.Size = new System.Drawing.Size(651, 362);
             this.rtbResults.TabIndex = 0;
             this.rtbResults.Text = "";
+            this.rtbResults.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rtbResults_MouseDown);
+            this.rtbResults.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rtbResults_MouseUp);
             // 
             // tabDetections
             // 
@@ -494,7 +496,7 @@ namespace VTCP
             // 
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -502,7 +504,7 @@ namespace VTCP
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
@@ -544,7 +546,7 @@ namespace VTCP
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
