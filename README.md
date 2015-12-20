@@ -1,7 +1,7 @@
 # Virus Total Command Post
 
 ### Get Names of All Services / Processes:
-![Step 1]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/1.png")
+![Step 1](https://raw.githubusercontent.com/et0x/VTCP/master/Images/1.png)
 
 ### Get Names of All Services / Processes:
 ![Step 2]("https://raw.githubusercontent.com/et0x/VTCP/master/Images/2.png")
