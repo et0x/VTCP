@@ -10,3 +10,4 @@ c:\users\et0x\documents\visual studio 2015\Projects\VTCP\VTCP\obj\Debug\VTCP.pdb
 c:\users\et0x\documents\visual studio 2015\Projects\VTCP\VTCP\bin\Debug\Newtonsoft.Json.dll
 c:\users\et0x\documents\visual studio 2015\Projects\VTCP\VTCP\bin\Debug\Newtonsoft.Json.xml
 c:\users\et0x\documents\visual studio 2015\Projects\VTCP\VTCP\obj\Debug\VTCP.Hashfile_Creator.resources
+C:\Users\et0x\documents\visual studio 2015\Projects\VTCP\VTCP\obj\Debug\VTCP.aboutbox.resources

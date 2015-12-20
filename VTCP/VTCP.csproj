@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aboutbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="aboutbox.Designer.cs">
+      <DependentUpon>aboutbox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="rtb.cs" />
     <Compile Include="VirusTotalHandler.cs" />
     <Compile Include="VirusTotalResults.cs" />
+    <EmbeddedResource Include="aboutbox.resx">
+      <DependentUpon>aboutbox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

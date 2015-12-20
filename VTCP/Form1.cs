@@ -634,5 +634,11 @@ namespace VTCP
             }
             return dList.Average();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form aboutBox = new aboutbox();
+            aboutBox.Show();
+        }
     }
 }

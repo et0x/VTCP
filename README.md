@@ -1,7 +1,7 @@
 # Virus Total Command Post
 
 ### Brief Synopsis:
-Quick VirusTotal.com Hash interaction program.  This allows you to input many different API Keys and cycles through them all as it submits, so that your rates can be greatly increased.  It will calculate how fast to submit hashes based on the number of API Keys loaded.  There are still bugs, this is a work in progress.
+Quick VirusTotal.com Hash interaction program.  This allows you to input many different API Keys and cycles through them all as it submits, so that your rates can be greatly increased.  It will calculate how fast to submit hashes based on the number of API Keys loaded without going over your daily allotments per key.  There are still bugs, this is a work in progress.
 
 
 ### Have your team sign up for API Keys from VirusTotal.com, put them into a text file and load them, or type them in manually.
