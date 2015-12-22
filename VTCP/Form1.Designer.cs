@@ -117,6 +117,10 @@ namespace VTCP
             this.lblCurrentHash = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbSubmitTimes = new System.Windows.Forms.ListBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbRate = new System.Windows.Forms.ComboBox();
             this.tcOptions.SuspendLayout();
             this.tabHashes.SuspendLayout();
             this.mnuHashListbox.SuspendLayout();
@@ -129,6 +133,7 @@ namespace VTCP
             this.mnulbApiKey.SuspendLayout();
             this.ssApp.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -498,7 +503,7 @@ namespace VTCP
             // 
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -506,7 +511,7 @@ namespace VTCP
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
@@ -734,7 +739,8 @@ namespace VTCP
             this.toolStripMenuItem4,
             this.toolStripMenuItem5});
             this.mnulbApiKey.Name = "mnulbApiKey";
-            this.mnulbApiKey.Size = new System.Drawing.Size(186, 76);
+            this.mnulbApiKey.Size = new System.Drawing.Size(186, 98);
+            this.mnulbApiKey.Opening += new System.ComponentModel.CancelEventHandler(this.mnulbApiKey_Opening);
             // 
             // toolStripMenuItem3
             // 
@@ -808,7 +814,7 @@ namespace VTCP
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(926, 178);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(211, 135);
+            this.groupBox2.Size = new System.Drawing.Size(211, 75);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Information";
@@ -876,11 +882,68 @@ namespace VTCP
             this.lbSubmitTimes.TabIndex = 12;
             this.lbSubmitTimes.Visible = false;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.cbRate);
+            this.groupBox3.Location = new System.Drawing.Point(929, 259);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(207, 76);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Rate Modification";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(66, 43);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(92, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "(recommended: 4)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(66, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Per Key / Minute";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // cbRate
+            // 
+            this.cbRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRate.Enabled = false;
+            this.cbRate.FormattingEnabled = true;
+            this.cbRate.Items.AddRange(new object[] {
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.cbRate.Location = new System.Drawing.Point(6, 22);
+            this.cbRate.Name = "cbRate";
+            this.cbRate.Size = new System.Drawing.Size(55, 21);
+            this.cbRate.TabIndex = 0;
+            this.cbRate.SelectedIndexChanged += new System.EventHandler(this.cbRate_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1145, 521);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lbSubmitTimes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.ssApp);
@@ -916,6 +979,8 @@ namespace VTCP
             this.ssApp.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1018,6 +1083,10 @@ namespace VTCP
         private Label label6;
         private Label lblDetections;
         private Label label7;
+        private GroupBox groupBox3;
+        private ComboBox cbRate;
+        private Label label4;
+        private Label label9;
     }
 }
 

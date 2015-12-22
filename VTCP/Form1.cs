@@ -23,6 +23,7 @@ namespace VTCP
         int hashIndex = 0;
         int iDuration = 0;
         bool bRunning = false;
+        int keyRate = 4;
         DateTime lastSubmission = DateTime.MinValue;
 
         public Form1()
@@ -48,7 +49,7 @@ namespace VTCP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            cbRate.SelectedIndex = 0;
             lbApiKeys.ContextMenuStrip = mnulbApiKey;
 
         }
@@ -79,14 +80,15 @@ namespace VTCP
 
             lbApiKeys.Items.Add(tbAddApiKey.Text);
             tbAddApiKey.Text = "";
-            lblProjectedMin.Text = (lbApiKeys.Items.Count * 4).ToString();
-            lblProjectedHr.Text = (lbApiKeys.Items.Count * 4 * 60).ToString();
-            lblProjectedDay.Text = (lbApiKeys.Items.Count * 4 * 60 * 24).ToString();
+            lblProjectedMin.Text = (lbApiKeys.Items.Count * keyRate).ToString();
+            lblProjectedHr.Text = (lbApiKeys.Items.Count * keyRate * 60).ToString();
+            lblProjectedDay.Text = (lbApiKeys.Items.Count * keyRate * 60 * 24).ToString();
             lblInterval.Text = (60.0 / Convert.ToDouble(lblProjectedMin.Text)).ToString();
             timer1.Interval = (int)(Convert.ToDouble(lblInterval.Text) * 1000.0);
             if (lbApiKeys.Items.Count > 0 && lbHashes.Items.Count > 0)
             {
                 startToolStripMenuItem.Enabled = true;
+                cbRate.Enabled = true;
             }
 
         }
@@ -110,9 +112,9 @@ namespace VTCP
 
                 int ind = lbApiKeys.SelectedIndices[x];
                 lbApiKeys.Items.RemoveAt(ind);
-                lblProjectedMin.Text = (lbApiKeys.Items.Count * 4).ToString();
-                lblProjectedHr.Text = (lbApiKeys.Items.Count * 4 * 60).ToString();
-                lblProjectedDay.Text = (lbApiKeys.Items.Count * 4 * 60 * 24).ToString();
+                lblProjectedMin.Text = (lbApiKeys.Items.Count * keyRate).ToString();
+                lblProjectedHr.Text = (lbApiKeys.Items.Count * keyRate * 60).ToString();
+                lblProjectedDay.Text = (lbApiKeys.Items.Count * keyRate * 60 * 24).ToString();
 
                 if (lblProjectedMin.Text != "0")
                 {
@@ -171,9 +173,9 @@ namespace VTCP
 
                 }
 
-                lblProjectedMin.Text = (lbApiKeys.Items.Count * 4).ToString();
-                lblProjectedHr.Text = (lbApiKeys.Items.Count * 4 * 60).ToString();
-                lblProjectedDay.Text = (lbApiKeys.Items.Count * 4 * 60 * 24).ToString();
+                lblProjectedMin.Text = (lbApiKeys.Items.Count * keyRate).ToString();
+                lblProjectedHr.Text = (lbApiKeys.Items.Count * keyRate * 60).ToString();
+                lblProjectedDay.Text = (lbApiKeys.Items.Count * keyRate * 60 * 24).ToString();
 
                 if (lblProjectedMin.Text != "0")
                 {
@@ -194,6 +196,7 @@ namespace VTCP
             if (lbApiKeys.Items.Count > 0 && lbHashes.Items.Count > 0)
             {
                 startToolStripMenuItem.Enabled = true;
+                cbRate.Enabled = true;
             }
 
         }
@@ -267,6 +270,7 @@ namespace VTCP
             if (lbApiKeys.Items.Count > 0 && lbHashes.Items.Count > 0)
             {
                 startToolStripMenuItem.Enabled = true;
+                cbRate.Enabled = true;
                 
             }
 
@@ -677,6 +681,29 @@ namespace VTCP
                 rtbResults.ScrollToCaret();
 
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbRate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            keyRate = Convert.ToInt32(cbRate.GetItemText(cbRate.SelectedItem));
+            lblProjectedMin.Text = (lbApiKeys.Items.Count * keyRate).ToString();
+            lblProjectedHr.Text = (lbApiKeys.Items.Count * keyRate * 60).ToString();
+            lblProjectedDay.Text = (lbApiKeys.Items.Count * keyRate * 60 * 24).ToString();
+            lblInterval.Text = (60.0 / Convert.ToDouble(lblProjectedMin.Text)).ToString();
+            if (lbApiKeys.Items.Count > 0 && lbHashes.Items.Count > 0)
+            {
+                timer1.Interval = (int)(Convert.ToDouble(lblInterval.Text) * 1000.0);
+            }
+        }
+
+        private void mnulbApiKey_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }
