@@ -385,6 +385,7 @@ namespace VTCP
 
                     // re-enable tabs
                     bRunning = false;
+                    tcOptions.Enabled = true;
 
                 }
                 else
@@ -413,6 +414,7 @@ namespace VTCP
 
                     // disable tabs
                     tcOptions.SelectedTab = tabConsole;
+                    tcOptions.Enabled = false;
                     bRunning = true;
 
                     // progress bar
@@ -443,6 +445,7 @@ namespace VTCP
 
                 // disable tabs
                 tcOptions.SelectedTab = tabConsole;
+                tcOptions.Enabled = false;
                 bRunning = true;
 
             }
@@ -464,6 +467,7 @@ namespace VTCP
 
                 // re-enable tabs
                 bRunning = false;
+                tcOptions.Enabled = true;
 
                 // misc
                 lastSubmission = DateTime.MinValue;
@@ -655,7 +659,7 @@ namespace VTCP
                 }
                 catch (NullReferenceException)
                 {
-                    rtb.printWarning("Unique file submitted (never submitted before)", rtbResults);
+                    rtb.printWarning("Unique file submitted (no detection report available)", rtbResults);
                     if (cbVerbose.Checked)
                     {
 

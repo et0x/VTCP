@@ -12,9 +12,9 @@ namespace VTCP
     {
 
         Color statusColor = Color.FromArgb(0x555753);
-        Color successColor = Color.FromArgb(0x8AE234);
-        Color failureColor = Color.FromArgb(0xEF2929);
-        Color warningColor = Color.FromArgb(0xFCE94F);
+        Color successColor = Color.DarkGreen;
+        Color failureColor = Color.DarkRed;
+        Color warningColor = Color.Orange;
         Color regularColor = Color.FromArgb(0xEEEEEC);
 
         public void printStatus(string txt, RichTextBox rtb)
