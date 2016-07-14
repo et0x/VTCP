@@ -1,31 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace VTCP
 {
-    class Hasher
+    internal class Hasher
     {
-        private string fileName { get; set; }
-        private string algorithm { get; set; }
-
         public Hasher(string fileName, string algorithm)
         {
-
-            this.fileName = fileName;
-            this.algorithm = algorithm;
-
+            FileName = fileName;
+            Algorithm = algorithm;
         }
 
-        public string calculateHash()
+        private string FileName { get; }
+        private string Algorithm { get; }
+
+        public string CalculateHash()
         {
-            HashAlgorithm hasher = HashAlgorithm.Create(algorithm);
-            var sr = (new StreamReader(fileName)).BaseStream;
-            return BitConverter.ToString(hasher.ComputeHash(sr)).Replace("-","");
+            var hasher = HashAlgorithm.Create(Algorithm);
+            var sr = new StreamReader(FileName).BaseStream;
+            return hasher != null ? BitConverter.ToString(hasher.ComputeHash(sr)).Replace("-", "") : null;
         }
     }
 }

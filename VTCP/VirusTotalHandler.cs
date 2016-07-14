@@ -1,38 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Specialized;
 using System.Net;
-using Newtonsoft.Json;
+using System.Text;
 
 namespace VTCP
 {
-    class VirusTotalHandler
+    internal class VirusTotalHandler
     {
-
-        public string APIKey { get; set; }
+        private readonly WebClient _client = new WebClient();
         public int DetectionThreshold = 10;
-        WebClient client = new WebClient();
 
-        public VirusTotalHandler()
-        {
-            
-        }
+        public string ApiKey { get; set; }
 
         public string CheckHash(string hash)
         {
-            string uri = "http://www.virustotal.com/vtapi/v2/file/report";
-            byte[] response =
-                client.UploadValues(uri, new System.Collections.Specialized.NameValueCollection()
+            var uri = "http://www.virustotal.com/vtapi/v2/file/report";
+            var response =
+                _client.UploadValues(uri, new NameValueCollection
                 {
-                    { "apikey", APIKey },
-                    { "resource", hash }
+                    {"apikey", ApiKey},
+                    {"resource", hash}
                 }
-                );
+                    );
 
-            return System.Text.Encoding.UTF8.GetString(response);
+            return Encoding.UTF8.GetString(response);
         }
-
     }
 }

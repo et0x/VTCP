@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-
-namespace VTCP
+﻿namespace VTCP
 {
     public class Bkav
     {
@@ -521,5 +514,4 @@ namespace VTCP
         public string sha256 { get; set; }
         public string md5 { get; set; }
     }
-
 }

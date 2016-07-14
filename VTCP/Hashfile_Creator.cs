@@ -78,7 +78,7 @@ namespace VTCP
                         {
                             toolStripProgressBar1.Value++;
                             Hasher h = new Hasher(file, algo);
-                            lbResults.Items.Add(h.calculateHash() + "|" + file);
+                            lbResults.Items.Add(h.CalculateHash() + "|" + file);
                         }
 
                         fileSearch(dir, filter,true);
@@ -102,7 +102,7 @@ namespace VTCP
                         {
                             toolStripProgressBar1.Value++;
                             Hasher h = new Hasher(file, algo);
-                            lbResults.Items.Add(h.calculateHash() + "|" + file);
+                            lbResults.Items.Add(h.CalculateHash() + "|" + file);
                         }
                     }
                     catch (Exception ex)

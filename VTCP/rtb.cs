@@ -1,49 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace VTCP
 {
-    public class RTBPrinter
+    public class RtbPrinter
     {
+        private readonly Color _failureColor = Color.DarkRed;
+        private readonly Color _regularColor = Color.FromArgb(0xEEEEEC);
 
-        Color statusColor = Color.FromArgb(0x555753);
-        Color successColor = Color.DarkGreen;
-        Color failureColor = Color.DarkRed;
-        Color warningColor = Color.Orange;
-        Color regularColor = Color.FromArgb(0xEEEEEC);
+        private readonly Color _statusColor = Color.FromArgb(0x555753);
+        private readonly Color _successColor = Color.DarkGreen;
+        private readonly Color _warningColor = Color.Orange;
 
-        public void printStatus(string txt, RichTextBox rtb)
+        public void PrintStatus(string txt, RichTextBox rtb)
         {
-            rtb.SelectionColor = statusColor;
+            rtb.SelectionColor = _statusColor;
             rtb.SelectedText = "[*] " + txt + "\r\n";
         }
 
-        public void printSuccess(string txt, RichTextBox rtb)
+        public void PrintSuccess(string txt, RichTextBox rtb)
         {
-            rtb.SelectionColor = successColor;
+            rtb.SelectionColor = _successColor;
             rtb.SelectedText = "[+] " + txt + "\r\n";
         }
 
-        public void printFailure(string txt, RichTextBox rtb)
+        public void PrintFailure(string txt, RichTextBox rtb)
         {
-            rtb.SelectionColor = failureColor;
+            rtb.SelectionColor = _failureColor;
             rtb.SelectedText = "[-] " + txt + "\r\n";
         }
 
-        public void printWarning(string txt, RichTextBox rtb)
+        public void PrintWarning(string txt, RichTextBox rtb)
         {
-            rtb.SelectionColor = warningColor;
+            rtb.SelectionColor = _warningColor;
             rtb.SelectedText = "[!] " + txt + "\r\n";
         }
 
-        public void printRegular(string txt, RichTextBox rtb)
+        public void PrintRegular(string txt, RichTextBox rtb)
         {
-            rtb.SelectionColor = regularColor;
+            rtb.SelectionColor = _regularColor;
             rtb.SelectedText = txt + "\r\n";
         }
     }
